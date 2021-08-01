@@ -1,31 +1,33 @@
-package com.example.financial_Analyzer.Entities;
-
+package com.example.financial_Analyzer.dto;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
-@Entity
-public class TransactionDetail {
+public class TransactionDetailDto {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long serialNo;
+	@NotNull
 	private long customer_Id;
+	@NotNull
 	private String transaction_Description;
+	@NotNull
 	private int amount;
+	@NotNull
 	private String payment_Type;
+	@NotNull
 	private String category;
+	@NotNull
 	private Date date;
 	
 	
-	public TransactionDetail() {
-		
-	}
-	public TransactionDetail(long customer_Id, String transaction_Description, int amount, String payment_Type,
-			String category, Date date) {
+	public TransactionDetailDto( long customer_Id, String transaction_Description, int amount,
+			String payment_Type, String category, Date date) {
 		super();
 		this.customer_Id = customer_Id;
 		this.transaction_Description = transaction_Description;
@@ -70,11 +72,6 @@ public class TransactionDetail {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-
-
-	
-	
 	
 
 }

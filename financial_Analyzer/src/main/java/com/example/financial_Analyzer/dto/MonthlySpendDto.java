@@ -1,41 +1,36 @@
-package com.example.financial_Analyzer.Entities;
+package com.example.financial_Analyzer.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Entity
-public class MonthlySpend {
+import javax.validation.constraints.NotBlank;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private String month;
+import javax.validation.constraints.NotNull;
+
+public class MonthlySpendDto {
+	
+	@NotNull
+	private String month ;
+	@NotNull
 	private long customer_Number;
+	@NotBlank
 	private float total_Incoming;
+	@NotNull
 	private float total_Outgoing;
+	@NotNull
 	private float closing_balance;
 	
 	
-	public MonthlySpend() {
-		super();
+	
+	public MonthlySpendDto() {
+		
 	}
-	public MonthlySpend(String month, long customer_Number, float total_Incoming, float total_Outgoing,
+	public MonthlySpendDto(String month, long customer_Number, float total_Incoming, float total_Outgoing,
 			float closing_balance) {
-		super();
 		
 		this.month = month;
 		this.customer_Number = customer_Number;
 		this.total_Incoming = total_Incoming;
 		this.total_Outgoing = total_Outgoing;
 		this.closing_balance = closing_balance;
-	}
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
 	}
 	public String getMonth() {
 		return month;
@@ -67,5 +62,5 @@ public class MonthlySpend {
 	public void setClosing_balance(float closing_balance) {
 		this.closing_balance = closing_balance;
 	}
-	
+
 }

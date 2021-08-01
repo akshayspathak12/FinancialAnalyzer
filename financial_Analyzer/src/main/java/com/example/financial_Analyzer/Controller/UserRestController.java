@@ -1,9 +1,8 @@
 package com.example.financial_Analyzer.Controller;
 
-
-
 import java.util.List;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,61 +13,47 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.financial_Analyzer.Entities.MonthlySpend;
 import com.example.financial_Analyzer.Entities.TransactionDetail;
-import com.example.financial_Analyzer.Reposities.MonthlySpendRepository;
-import com.example.financial_Analyzer.Reposities.TransactionDetailRepo;
 
-
-
+import com.example.financial_Analyzer.Service.UserService;
+import com.example.financial_Analyzer.dto.MonthlySpendDto;
+import com.example.financial_Analyzer.dto.TransactionDetailDto;
+import com.example.financial_Analyzer.web.UserRestAPI;
 
 @RestController
-public class UserRestController {
+public class UserRestController implements UserRestAPI {
 	
 	@Autowired
-	private TransactionDetailRepo transactionRepo;
+	private UserService userService;
 	
-	@Autowired
-	private MonthlySpendRepository monthlySpendRepo;
-	
-	@PostMapping("/transaction")
-	public TransactionDetail postData(@RequestBody TransactionDetail detail) {
-				TransactionDetail save = transactionRepo.save(detail);
+	public TransactionDetail postData(@Valid @RequestBody TransactionDetailDto detail) throws Exception{
+				TransactionDetail save = userService.saveData(detail);
 				return save;
 	}
 	
-	@GetMapping("/transactions")
-	public List<TransactionDetail> getData() {
-	
-		List<TransactionDetail> findAll = transactionRepo.findAll();
-		
+	public List<TransactionDetailDto> getData() {
+		List<TransactionDetailDto> findAll = userService.findAllData();
 		return findAll;
 		
 	}
 	
 	
-	@PostMapping("/monthlySpend")
-	public MonthlySpend postMonthlyData(@RequestBody MonthlySpend detail) {
-				MonthlySpend save = monthlySpendRepo.save(detail);
+	public MonthlySpend postMonthlyData(@RequestBody MonthlySpendDto detail) throws Exception {
+				MonthlySpend save = userService.saveMonthlyData(detail);
 				return save;
 	}
 	
-	@GetMapping("/Income/{paymentCategory}")
-	public List<TransactionDetail> getIncomeData(@PathVariable("paymentCategory") String paymentCategory) {
-		List<TransactionDetail> findIncome = transactionRepo.findIncome(paymentCategory);
-		
-		return findIncome;
+	public List<TransactionDetailDto> getIncomeData(@PathVariable("paymentCategory") String paymentCategory) {
+		List<TransactionDetailDto> IncomeData = userService.findIncomeData(paymentCategory);
+		return IncomeData;
 	}
 	
-	
-	@GetMapping("/Expenses/{paymentCategory}")
-	public List<TransactionDetail> getExpensesData(@PathVariable("paymentCategory") String paymentCategory) {
-		List<TransactionDetail> findIncome = transactionRepo.findIncome(paymentCategory);
-		
-		return findIncome;
+	public List<TransactionDetailDto> getExpensesData(@PathVariable("paymentCategory") String paymentCategory) {
+		List<TransactionDetailDto> expensesData = userService.findExpenseData(paymentCategory);
+		return expensesData;
 	}
 	
-	@GetMapping("/threeMonthIncomeAndExpenses")
-	public List<MonthlySpend> getMonthData() {
-				List<MonthlySpend> findAll = monthlySpendRepo.findAll();
+	public List<MonthlySpendDto> getMonthData() {
+				List<MonthlySpendDto> findAll = userService.findAllMonthlyData();
 				return findAll;
 	}
 
