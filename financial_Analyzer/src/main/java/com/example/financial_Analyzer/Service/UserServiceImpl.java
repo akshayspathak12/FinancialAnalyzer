@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private MonthlySpendRepository monthlySpendRepo;
 	
-	Logger log;
+	
 	//adds the entries to the DB using ORM
 	@Override
 	public TransactionDetail saveData(TransactionDetailDto detail) throws Exception {
